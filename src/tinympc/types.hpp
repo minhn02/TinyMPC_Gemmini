@@ -1,6 +1,7 @@
 #pragma once
 
-#include <Eigen.h>
+#include <Eigen/Dense>
+#include "Eigen/src/Core/util/Constants.h"
 #include "glob_opts.hpp"
 
 using Eigen::Matrix;
@@ -10,13 +11,13 @@ extern "C" {
 #endif
     typedef Matrix<tinytype, NSTATES, 1> tiny_VectorNx;
     typedef Matrix<tinytype, NINPUTS, 1> tiny_VectorNu;
-    typedef Matrix<tinytype, NSTATES, NSTATES> tiny_MatrixNxNx;
-    typedef Matrix<tinytype, NSTATES, NINPUTS> tiny_MatrixNxNu;
-    typedef Matrix<tinytype, NINPUTS, NSTATES> tiny_MatrixNuNx;
-    typedef Matrix<tinytype, NINPUTS, NINPUTS> tiny_MatrixNuNu;
+    typedef Matrix<tinytype, NSTATES, NSTATES, Eigen::RowMajor> tiny_MatrixNxNx;
+    typedef Matrix<tinytype, NSTATES, NINPUTS, Eigen::RowMajor> tiny_MatrixNxNu;
+    typedef Matrix<tinytype, NINPUTS, NSTATES, Eigen::RowMajor> tiny_MatrixNuNx;
+    typedef Matrix<tinytype, NINPUTS, NINPUTS, Eigen::RowMajor> tiny_MatrixNuNu;
 
-    typedef Matrix<tinytype, NSTATES, NHORIZON> tiny_MatrixNxNh;       // Nu x Nh
-    typedef Matrix<tinytype, NINPUTS, NHORIZON - 1> tiny_MatrixNuNhm1; // Nu x Nh-1
+    typedef Matrix<tinytype, NSTATES, NHORIZON, Eigen::RowMajor> tiny_MatrixNxNh;       // Nu x Nh
+    typedef Matrix<tinytype, NINPUTS, NHORIZON - 1, Eigen::RowMajor> tiny_MatrixNuNhm1; // Nu x Nh-1
 
     /**
      * Matrices that must be recomputed with changes in time step, rho
